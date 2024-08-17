@@ -5,11 +5,11 @@
 * download python-docx 
 """
 
-# Liblary needed to read docx files
+
 from docx import Document
 import random
 
-# Load docx file
+# Choose path
 f = Document(r'')
 
 # Specify word-definition separator
@@ -23,12 +23,16 @@ words = {}
 for paragraph in f.paragraphs:
     lines.extend(paragraph.text.splitlines())
 
-# Populate dictionary
+# Populate dictionary and check for errors (lines number matching etc)
 for line in lines:
     if sep in line:
         key, value = line.split(sep,1)
         if key and value:
             words[key.strip()] = value.replace('\t', '').replace('\n', '').strip() 
+        else: print('No key or value: ',key,value)
+    else: print('no separator: ',line)
+print(len(words.keys()))
+
 
 # Show random words-definition pair
 while words:
